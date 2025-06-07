@@ -2,13 +2,17 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 .calculator {
     background-color: rgb(22, 27, 71);
+
     width: 300px;
     height: 450px;
     padding: 10px;
+
+    border-radius: 8px;
 
     display: flex;
     flex-flow: column;
@@ -18,31 +22,60 @@
 
 .display {
     height: 85px;
-    background-color: rgb(117, 112, 106);
+
+    background-color: rgb(180, 177, 173);
+
+    font-size: 42px;
+    font-weight: 600;
+
+    justify-content: flex-end;
+    align-items: end;
+
+    border-radius: 8px;
+    padding: 2px 8px;
 }
 
 .display, .buttons, .auxiliary-buttons {
     display: flex;
-    width: 100%
+    width: 100%;
 }
 
 .buttons {
+    height: 270px;
+    
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    height: 270px;
 }
 
 .auxiliary-buttons {
-    justify-content: flex-end;
+    justify-content: space-between;
     height: 60px;
 }
 
 button {
+    font-size: 24px;
     border-style: none;
-    border-radius: 12px;
+    border-radius: 8px;
     height: 60px;
     width: 60px;
     background-color: rgb(230, 230, 230);
+}
+
+.fun {
+    font-size: 21px;
+    color: white;
+    width: 134px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
 }
