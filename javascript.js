@@ -38,3 +38,18 @@ const operate = function(num1, num2, operator) {
 
     return result;
 }
+
+let displayText = "";
+
+const buttons = document.querySelectorAll("button")
+const display = document.querySelector(".display")
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        if (Number(button.textContent)) {
+            displayText += button.textContent;
+            display.textContent = displayText;
+        } else  {
+
+        }
+    })
+})
