@@ -1,5 +1,4 @@
-let num1 = null;
-let num2 = null;
+let currentOperation = [];
 let operator = null;
 
 const add = function (num1, num2) {
@@ -26,16 +25,16 @@ const operate = function (num1, num2, operator) {
     let result = null;
 
     switch (operator) {
-        case "add":
+        case "+":
             result = add(num1, num2);
             break;
-        case "subtract":
+        case "-":
             result = subtract(num1, num2);
             break;
-        case "multiply":
+        case "*":
             result = multiply(num1, num2);
             break;
-        case "divide":
+        case "/":
             result = divide(num1, num2);
             break;
     }
@@ -48,26 +47,48 @@ let displayText = "";
 const calculatorContainer = document.querySelector(".calculator")
 const display = document.querySelector(".display")
 
-const clearDisplay = function() {
+const clearDisplay = function () {
     display.textContent = "";
+}
+
+const evaluate = function (target) {
+    if (currentOperation[0]) {
+        
+        if (target.textContent == "=") {
+            currentOperation[1] = Number(displayText);
+            resultOfOperation = operate(currentOperation[0], currentOperation[1], currentOperation[2])
+            
+            currentOperation.length = 0;
+
+            display.textContent = resultOfOperation;
+            currentOperation[0] = resultOfOperation;
+        } else {
+            console.log("ANOTHER OPERATOR")
+        }
+    } else {
+        currentOperation[0] = Number(displayText);
+        currentOperation[2] = target.textContent;
+        clearDisplay();
+    }
 }
 
 calculatorContainer.addEventListener("click", (event) => {
     target = event.target;
 
-    if (target.tagName === "BUTTON"){
+    if (target.tagName === "BUTTON") {
         if (Number(target.textContent)) {
             display.textContent += target.textContent;
         } else if (target.textContent === "DEL" && display.textContent != "") {
             display.textContent = display.textContent.slice(0, -1);
         } else if (target.textContent === "." && display.textContent.indexOf('.') === -1) {
-            display.textContent += target.textContent;   
+            display.textContent += target.textContent;
         } else if (target.textContent === "AC") {
             clearDisplay();
+            currentOperation.length = 0;
         } else {
-
+            evaluate(target)
         }
-    } 
+    }
 
     displayText = display.textContent
 })
