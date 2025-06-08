@@ -1,4 +1,4 @@
-let currentOperation = [];
+let currentExpression = [];
 let operator = null;
 
 const add = function (num1, num2) {
@@ -52,22 +52,21 @@ const clearDisplay = function () {
 }
 
 const evaluate = function (target) {
-    if (currentOperation[0]) {
-        
-        if (target.textContent == "=") {
-            currentOperation[1] = Number(displayText);
-            resultOfOperation = operate(currentOperation[0], currentOperation[1], currentOperation[2])
-            
-            currentOperation.length = 0;
+    if (currentExpression[0]) {
+        currentExpression[1] = Number(displayText);
+        resultOfOperation = operate(currentExpression[0], currentExpression[1], currentExpression[2])
 
-            display.textContent = resultOfOperation;
-            currentOperation[0] = resultOfOperation;
-        } else {
-            console.log("ANOTHER OPERATOR")
+        currentExpression.length = 0;
+
+        display.textContent = resultOfOperation;
+        currentExpression[0] = resultOfOperation;
+
+        if (target.classList.contains("operator")) {
+            currentExpression[2] = target.textContent;
         }
     } else {
-        currentOperation[0] = Number(displayText);
-        currentOperation[2] = target.textContent;
+        currentExpression[0] = Number(displayText);
+        currentExpression[2] = target.textContent;
         clearDisplay();
     }
 }
@@ -77,6 +76,7 @@ calculatorContainer.addEventListener("click", (event) => {
 
     if (target.tagName === "BUTTON") {
         if (Number(target.textContent)) {
+            if (currentExpression[2]) clearDisplay();
             display.textContent += target.textContent;
         } else if (target.textContent === "DEL" && display.textContent != "") {
             display.textContent = display.textContent.slice(0, -1);
@@ -84,8 +84,8 @@ calculatorContainer.addEventListener("click", (event) => {
             display.textContent += target.textContent;
         } else if (target.textContent === "AC") {
             clearDisplay();
-            currentOperation.length = 0;
-        } else {
+            currentExpression.length = 0;
+        } else if (target.classList.contains("operator")) {
             evaluate(target)
         }
     }
