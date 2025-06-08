@@ -51,6 +51,8 @@ const clearDisplay = function () {
     display.textContent = "";
 }
 
+let justFinishedEvaluating = false;
+
 const evaluate = function (target) {
     if (currentExpression[0] && displayText != "") {
         currentExpression[1] = Number(displayText);
@@ -63,6 +65,7 @@ const evaluate = function (target) {
 
         if (target.textContent != "=" && target.classList.contains("operator")) {
             currentExpression[2] = target.textContent;
+            justFinishedEvaluating = true;
         } else if (target.textContent == "=") {
             currentExpression.length = 0;
         }
@@ -80,7 +83,10 @@ calculatorContainer.addEventListener("click", (event) => {
 
     if (target.tagName === "BUTTON") {
         if (Number(target.textContent)) {
-            if (currentExpression[2]) clearDisplay();
+            if (justFinishedEvaluating == true) {
+                clearDisplay();
+                justFinishedEvaluating = false;
+            } 
             display.textContent += target.textContent;
         } else if (target.textContent === "DEL" && display.textContent != "") {
             display.textContent = display.textContent.slice(0, -1);
