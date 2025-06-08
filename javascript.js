@@ -15,6 +15,10 @@ const multiply = function (num1, num2) {
 }
 
 const divide = function (num1, num2) {
+    if (num2 == 0) {
+        alert("You can't divide by 0!");
+        return "err";
+    }
     return num1 / num2;
 }
 
@@ -43,6 +47,11 @@ let displayText = "";
 
 const calculatorContainer = document.querySelector(".calculator")
 const display = document.querySelector(".display")
+
+const clearDisplay = function() {
+    display.textContent = "";
+}
+
 calculatorContainer.addEventListener("click", (event) => {
     target = event.target;
 
@@ -54,8 +63,7 @@ calculatorContainer.addEventListener("click", (event) => {
         } else if (target.textContent === "." && display.textContent.indexOf('.') === -1) {
             display.textContent += target.textContent;   
         } else if (target.textContent === "AC") {
-            console.log("AC!")
-            display.textContent = "";
+            clearDisplay();
         } else {
 
         }
