@@ -52,7 +52,7 @@ const clearDisplay = function () {
 }
 
 const evaluate = function (target) {
-    if (currentExpression[0]) {
+    if (currentExpression[0] && displayText != "") {
         currentExpression[1] = Number(displayText);
         resultOfOperation = operate(currentExpression[0], currentExpression[1], currentExpression[2])
 
@@ -61,13 +61,17 @@ const evaluate = function (target) {
         display.textContent = resultOfOperation;
         currentExpression[0] = resultOfOperation;
 
-        if (target.classList.contains("operator")) {
+        if (target.textContent != "=" && target.classList.contains("operator")) {
             currentExpression[2] = target.textContent;
+        } else if (target.textContent == "=") {
+            currentExpression.length = 0;
         }
-    } else {
+    } else if (!currentExpression[0] && !currentExpression[2]) {
         currentExpression[0] = Number(displayText);
         currentExpression[2] = target.textContent;
         clearDisplay();
+    } else if (currentExpression[0] && currentExpression[2]) {
+        currentExpression[2] = target.textContent;
     }
 }
 
