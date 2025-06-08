@@ -48,10 +48,18 @@ calculatorContainer.addEventListener("click", (event) => {
 
     if (target.tagName === "BUTTON"){
         if (Number(target.textContent)) {
-            displayText += target.textContent;
-            display.textContent = displayText;
+            display.textContent += target.textContent;
+        } else if (target.textContent === "DEL" && display.textContent != "") {
+            display.textContent = display.textContent.slice(0, -1);
+        } else if (target.textContent === "." && display.textContent.indexOf('.') === -1) {
+            display.textContent += target.textContent;   
+        } else if (target.textContent === "AC") {
+            console.log("AC!")
+            display.textContent = "";
         } else {
 
         }
     } 
+
+    displayText = display.textContent
 })
