@@ -51,7 +51,7 @@ const clearDisplay = function () {
     display.textContent = "";
 }
 
-let justFinishedEvaluating = false;
+let resultOnScreen = false;
 
 const evaluate = function (target) {
     if (currentExpression[0] && displayText != "") {
@@ -61,11 +61,11 @@ const evaluate = function (target) {
         currentExpression.length = 0;
 
         display.textContent = resultOfOperation;
+        resultOnScreen = true;
         currentExpression[0] = resultOfOperation;
 
         if (target.textContent != "=" && target.classList.contains("operator")) {
             currentExpression[2] = target.textContent;
-            justFinishedEvaluating = true;
         } else if (target.textContent == "=") {
             currentExpression.length = 0;
         }
@@ -83,12 +83,13 @@ calculatorContainer.addEventListener("click", (event) => {
 
     if (target.tagName === "BUTTON") {
         if (Number(target.textContent)) {
-            if (justFinishedEvaluating == true) {
+            if (resultOnScreen == true) {
                 clearDisplay();
-                justFinishedEvaluating = false;
+                resultOnScreen = false;
             } 
             display.textContent += target.textContent;
-        } else if (target.textContent === "DEL" && display.textContent != "") {
+        } else if (target.textContent === "DEL" 
+            && display.textContent != "" && !resultOnScreen) {
             display.textContent = display.textContent.slice(0, -1);
         } else if (target.textContent === "." && display.textContent.indexOf('.') === -1) {
             display.textContent += target.textContent;
