@@ -92,7 +92,8 @@ calculatorContainer.addEventListener("click", (event) => {
     target = event.target;
 
     if (target.tagName === "BUTTON") {
-        if (Number(target.textContent)) {
+        if (!isNaN(Number(target.textContent))) {
+            console.log(target);
             if (resultOnScreen == true) {
                 clearDisplay();
                 resultOnScreen = false;
