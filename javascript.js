@@ -51,6 +51,15 @@ const clearDisplay = function () {
     display.textContent = "";
 }
 
+
+const formatResult = function(result) {
+    if (Number.isInteger(result)) {
+        return result;
+    } else {
+        return resultOfOperation.toFixed(2);
+    }
+}
+
 let resultOnScreen = false;
 
 const evaluate = function (target) {
@@ -60,8 +69,9 @@ const evaluate = function (target) {
 
         currentExpression.length = 0;
 
-        display.textContent = resultOfOperation;
+        display.textContent = formatResult(resultOfOperation);
         resultOnScreen = true;
+
         currentExpression[0] = resultOfOperation;
 
         if (target.textContent != "=" && target.classList.contains("operator")) {
