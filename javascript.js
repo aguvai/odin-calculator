@@ -53,11 +53,7 @@ const clearDisplay = function () {
 
 
 const formatResult = function(result) {
-    if (Number.isInteger(result)) {
-        return result;
-    } else {
-        return resultOfOperation.toFixed(2);
-    }
+    return Number.isInteger(result) ? result : result.toFixed(2);
 }
 
 let resultOnScreen = false;
@@ -79,7 +75,7 @@ const evaluate = function (target) {
         } else if (target.textContent == "=") {
             currentExpression.length = 0;
         }
-    } else if (!currentExpression[0] && !currentExpression[2]) {
+    } else if (isNaN(currentExpression[0]) && isNaN(currentExpression[2])) {
         currentExpression[0] = Number(displayText);
         currentExpression[2] = target.textContent;
         clearDisplay();
