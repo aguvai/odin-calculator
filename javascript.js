@@ -47,16 +47,17 @@ let displayText = "";
 const calculatorContainer = document.querySelector(".calculator")
 const display = document.querySelector(".display")
 
+let resultOnScreen = false;
+
 const clearDisplay = function () {
     display.textContent = "";
+    resultOnScreen = false;
 }
 
 
 const formatResult = function(result) {
     return Number.isInteger(result) ? result : result.toFixed(2);
 }
-
-let resultOnScreen = false;
 
 const evaluate = function (target) {
     if (!isNaN(currentExpression[0]) && displayText != "" && resultOnScreen == false) {
@@ -89,16 +90,21 @@ calculatorContainer.addEventListener("click", (event) => {
 
     if (target.tagName === "BUTTON") {
         if (!isNaN(Number(target.textContent))) {
-            if (resultOnScreen == true) {
-                clearDisplay();
-                resultOnScreen = false;
-            } 
+            if (resultOnScreen == true) clearDisplay();
             display.textContent += target.textContent;
         } else if (target.textContent === "DEL" 
             && display.textContent != "" && !resultOnScreen) {
             display.textContent = display.textContent.slice(0, -1);
-        } else if (target.textContent === "." && display.textContent.indexOf('.') === -1) {
-            display.textContent += target.textContent;
+        } else if (target.textContent === ".") {
+            if (display.textContent.indexOf('.') === -1) {
+                if (resultOnScreen == true) clearDisplay();
+                display.textContent += target.textContent;
+            } else {
+                if (resultOnScreen) {
+                    clearDisplay();
+                    display.textContent += target.textContent;
+                }
+            }
         } else if (target.textContent === "AC") {
             clearDisplay();
             currentExpression.length = 0;
