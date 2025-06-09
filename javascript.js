@@ -59,7 +59,7 @@ const formatResult = function(result) {
 let resultOnScreen = false;
 
 const evaluate = function (target) {
-    if (!isNaN(currentExpression[0]) && displayText != "") {
+    if (!isNaN(currentExpression[0]) && displayText != "" && resultOnScreen == false) {
         currentExpression[1] = Number(displayText);
         resultOfOperation = operate(currentExpression[0], currentExpression[1], currentExpression[2])
 
