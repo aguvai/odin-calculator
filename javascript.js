@@ -63,7 +63,7 @@ const formatResult = function(result) {
 let resultOnScreen = false;
 
 const evaluate = function (target) {
-    if (currentExpression[0] && displayText != "") {
+    if (!isNaN(currentExpression[0]) && displayText != "") {
         currentExpression[1] = Number(displayText);
         resultOfOperation = operate(currentExpression[0], currentExpression[1], currentExpression[2])
 
@@ -93,7 +93,6 @@ calculatorContainer.addEventListener("click", (event) => {
 
     if (target.tagName === "BUTTON") {
         if (!isNaN(Number(target.textContent))) {
-            console.log(target);
             if (resultOnScreen == true) {
                 clearDisplay();
                 resultOnScreen = false;
